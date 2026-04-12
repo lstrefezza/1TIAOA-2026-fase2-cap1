@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "author": "Luisa Souza",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -96,
+      "left": 158.44,
+      "attrs": { "env": "micropython-20231227-v1.22.0" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -105.3,
+      "left": -120.6,
+      "attrs": { "temperature": "75.6", "humidity": "25.5" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": -57.6,
+      "left": 451.2,
+      "attrs": { "text": "Exaustores" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": -76.6, "left": 316.8, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": 96,
+      "left": -76.8,
+      "attrs": { "text": "Sensores da terra" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -236.8,
+      "left": -143.2,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "esp:3V3", "dht1:VCC", "orange", [ "h-47.85", "v115.2", "h-220.8" ] ],
+    [ "dht1:SDA", "esp:14", "blue", [ "v28.8", "h230.5" ] ],
+    [ "esp:GND.2", "relay1:GND", "black", [ "h48", "v29.2" ] ],
+    [ "relay1:IN", "esp:23", "blue", [ "h-38.4", "v-29" ] ],
+    [ "esp:5V", "relay1:VCC", "red", [ "h0.15", "v28.8", "h134.4", "v-182.4" ] ]
+  ],
+  "dependencies": {}
+}
