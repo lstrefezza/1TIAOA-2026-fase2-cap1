@@ -19,11 +19,11 @@ O sistema permite:
 * dht22 → sensor digital de umidade e temperatura.
 
 ## Como executar o projeto
-1. Clone o repositório: git clone https://github.com/
+1. Clone o repositório: git clone git@github.com:lstrefezza/1TIAOA-2026-fase2-cap1.git
 2. Execute o sistema: python main.py
 
 ## Exemplo de saída
-O sistema exibe o PH e a umidde do solo em temreal como:
+O sistema exibe o PH e a umidade do solo em tempo real como:
 
 - PH do solo: 7.0
 - Umidade do solo: 25,5%
@@ -31,3 +31,18 @@ O sistema exibe o PH e a umidde do solo em temreal como:
 ## Autor
 
 Lucas Ribeiro Strefezza | Projeto acadêmico desenvolvido para a FIAP.
+
+## Obsevações:
+- Identificação: No Wokwi, ao passar o mouse sobre os pinos, o nome "GPIOx" aparece. Use o número que aparece no código (ex: pinMode(2, OUTPUT) usa o GPIO 2).
+
+- Simulação: Pinos 34-39 são ótimos para potenciômetros ou sensores de temperatura (DHT). Pinos 2, 4, 5, 12, 13, 14, 15 são ótimos para LEDs.
+
+- LEDs: É comum usar o 2 ou 4 para testar LEDs, e 12 ou 13 para botões.
+
+- Aviso: Pinos GPIO 34, 35, 36 e 39 não possuem resistores pull-up ou pull-down internos, então use resistores externos se necessário.
+
+- Projeto de referencia: https://wokwi.com/projects/460851158838958081
+
+Para saída digital do LDR (precisa alterar para analógico, conforme o enunciado da atividade):
+- 95 lux -> retorna 1.0 %
+- 100 lux-> retorna 0.0 %

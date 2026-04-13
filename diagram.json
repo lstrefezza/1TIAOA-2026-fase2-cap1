@@ -35,9 +35,16 @@
     {
       "type": "wokwi-photoresistor-sensor",
       "id": "ldr1",
-      "top": -236.8,
-      "left": -143.2,
+      "top": -208,
+      "left": -47.2,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -176.2,
+      "left": 326.4,
+      "attrs": { "color": "green", "xray": "1" }
     }
   ],
   "connections": [
@@ -48,7 +55,13 @@
     [ "dht1:SDA", "esp:14", "blue", [ "v28.8", "h230.5" ] ],
     [ "esp:GND.2", "relay1:GND", "black", [ "h48", "v29.2" ] ],
     [ "relay1:IN", "esp:23", "blue", [ "h-38.4", "v-29" ] ],
-    [ "esp:5V", "relay1:VCC", "red", [ "h0.15", "v28.8", "h134.4", "v-182.4" ] ]
+    [ "esp:5V", "relay1:VCC", "red", [ "h0.15", "v28.8", "h134.4", "v-182.4" ] ],
+    [ "ldr1:VCC", "esp:3V3", "red", [ "h0" ] ],
+    [ "ldr1:GND", "esp:GND.1", "black", [ "h0" ] ],
+    [ "ldr1:DO", "esp:15", "green", [ "h0" ] ],
+    [ "btn1:1.l", "esp:5V", "red", [ "h0" ] ],
+    [ "btn1:2.r", "esp:GND.1", "green", [ "h0" ] ],
+    [ "btn1:2.l", "esp:16", "blue", [ "h0" ] ]
   ],
   "dependencies": {}
 }
