@@ -13,37 +13,79 @@
     {
       "type": "wokwi-dht22",
       "id": "dht1",
-      "top": -105.3,
-      "left": -120.6,
+      "top": -86.1,
+      "left": -34.2,
       "attrs": { "temperature": "75.6", "humidity": "25.5" }
     },
     {
       "type": "wokwi-text",
       "id": "text1",
-      "top": -57.6,
-      "left": 451.2,
-      "attrs": { "text": "Exaustores" }
+      "top": 124.8,
+      "left": 374.4,
+      "attrs": { "text": "Bomba d'água" }
     },
-    { "type": "wokwi-relay-module", "id": "relay1", "top": -76.6, "left": 316.8, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 48.2, "left": 336, "attrs": {} },
     {
       "type": "wokwi-text",
       "id": "text2",
-      "top": 96,
-      "left": -76.8,
-      "attrs": { "text": "Sensores da terra" }
+      "top": -48,
+      "left": -259.2,
+      "attrs": { "text": "Sensor da umidade do solo" }
     },
     {
       "type": "wokwi-photoresistor-sensor",
       "id": "ldr1",
-      "top": -208,
-      "left": -47.2,
+      "top": -198.4,
+      "left": -66.4,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text4",
+      "top": -38.4,
+      "left": 441.6,
+      "attrs": { "text": "Potássio" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text5",
+      "top": -115.2,
+      "left": 441.6,
+      "attrs": { "text": "Fósforo" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text6",
+      "top": -192,
+      "left": 441.6,
+      "attrs": { "text": "Nitrogênio" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text7",
+      "top": -172.8,
+      "left": -249.6,
+      "attrs": { "text": "Sensor do PH do solo" }
     },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
-      "top": -176.2,
-      "left": 326.4,
+      "top": -205,
+      "left": 355.2,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": -128.2,
+      "left": 355.2,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn3",
+      "top": -51.4,
+      "left": 355.2,
       "attrs": { "color": "green", "xray": "1" }
     }
   ],
@@ -58,10 +100,13 @@
     [ "esp:5V", "relay1:VCC", "red", [ "h0.15", "v28.8", "h134.4", "v-182.4" ] ],
     [ "ldr1:VCC", "esp:3V3", "red", [ "h0" ] ],
     [ "ldr1:GND", "esp:GND.1", "black", [ "h0" ] ],
-    [ "ldr1:DO", "esp:15", "green", [ "h0" ] ],
-    [ "btn1:1.l", "esp:5V", "red", [ "h0" ] ],
-    [ "btn1:2.r", "esp:GND.1", "green", [ "h0" ] ],
-    [ "btn1:2.l", "esp:16", "blue", [ "h0" ] ]
+    [ "ldr1:AO", "esp:34", "green", [ "h0" ] ],
+    [ "btn1:2.l", "esp:32", "blue", [ "h0" ] ],
+    [ "btn2:2.l", "esp:33", "blue", [ "h0" ] ],
+    [ "btn1:1.l", "esp:GND.2", "green", [ "h0" ] ],
+    [ "btn2:1.l", "esp:GND.2", "green", [ "h0" ] ],
+    [ "btn3:1.l", "esp:GND.2", "green", [ "h0" ] ],
+    [ "btn3:2.l", "esp:21", "blue", [ "h0" ] ]
   ],
   "dependencies": {}
 }
