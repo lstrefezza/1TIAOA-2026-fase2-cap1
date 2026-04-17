@@ -42,7 +42,3 @@ Lucas Ribeiro Strefezza | Projeto acadêmico desenvolvido para a FIAP.
 - Aviso: Pinos GPIO 34, 35, 36 e 39 não possuem resistores pull-up ou pull-down internos, então use resistores externos se necessário.
 
 - Projeto de referencia: https://wokwi.com/projects/460851158838958081
-
-Para saída digital do LDR (precisa alterar para analógico, conforme o enunciado da atividade):
-- 95 lux -> retorna 1.0 %
-- 100 lux-> retorna 0.0 %
