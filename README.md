@@ -44,7 +44,7 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 * photoresistor-sensor (LDR) → sensor de luz, que irá ajudar na simulação do PH do solo.
 * dht22 → sensor de umidade e temperatura do ar, que irá ajudar na simulação da umidade do solo.
 * relay-module → relé que representa aa bomba de àgua.
-* Weather API - API de previsão do Google.
+* Weather API - API de clima do Google.
 
 ## Como executar o projeto
 1. Abra um projeto no wokwi: https://wokwi.com/projects/305568836183130690
@@ -65,7 +65,7 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 * Precipitação: 10%
 
 ##
-  **Atenção:** Se a API retornar erro o valor de precipitação será zero. Caso o status seja 429, a conta usada chegou no limite diário de requisições (100 por dia) e será necessário alterar a API_KEY (no início do main.py) de uma conta que ainda não chegou no limite ou aguardar até o dia seguinte.
+  **Atenção:** Se a API de clima retornar erro o valor de precipitação será zero. Caso o status seja 429, a conta usada chegou no limite diário de requisições (100 por dia) e será necessário alterar a API_KEY (no início do main.py) de uma conta que ainda não chegou no limite ou aguardar até o dia seguinte.
 
 ## Autor
 

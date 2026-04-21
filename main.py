@@ -112,4 +112,4 @@ while True:
     except OSError as e:
         print("Falha na leitura dos sensores. Verifique as conexões.")
 
-    sleep(1) #Intervalo para a leitura dos segundos.
+    sleep(1) #Intervalo para a leitura dos sensores e da API de clima em segundos.
