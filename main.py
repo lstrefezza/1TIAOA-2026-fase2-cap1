@@ -4,6 +4,13 @@ import network
 from machine import Pin, ADC
 from time import sleep
 
+precipitation_limit = 60 #Não liga a bomba de água se houver previsão de chuva igual ou maior que 60%
+h_limit = 50 #Liga a bomba de água se houver umidade menor que 50%
+ph_limit = 5.5 #Liga a bomba de água se o PH for menor que 5.5
+
+#Chave da api para consultar a previsão do tempo
+API_KEY = "AIzaSyCaa5maiC35idGJ6xYuH9QKTKFo5IK5CN8"
+
 #Variáveis dos elementos Nitrogênio(n), Fósforo(p) e Potássio(k).
 n = True
 p = True
@@ -48,7 +55,7 @@ print(" Conectado com sucesso!\n")
 
 #Função para buscar dados de clima na API do Google
 def fetch_weather():
-    url = "https://weather.googleapis.com/v1/forecast/days:lookup?key=AIzaSyB8PR0kUmJb2f_DuBGuAxdTE6sK6QcLrt8&location.latitude=23.5614&location.longitude=46.6564"
+    url = f"https://weather.googleapis.com/v1/forecast/days:lookup?key={API_KEY}&location.latitude=23.5614&location.longitude=46.6564"
     try:
         print("Consultando a API de clima...")
         response = urequests.get(url)
@@ -57,7 +64,7 @@ def fetch_weather():
         precipitation = response.json()['forecastDays'][0]['daytimeForecast']['precipitation']['probability']['percent']
         response.close()
     except Exception as e:
-        print(f"Erro na requisição:{e}\n")
+        print(f"Erro na requisição: {e}\n")
         precipitation = 0 #Caso de erro, assume 0%
     return precipitation
 
@@ -92,15 +99,17 @@ while True:
         print(f"Precipitação: {precipitation}%\n")
 
         #Relé: Irrigação do Solo (Bomba d'água).
-        if precipitation < 10: #Se houver previsão de chuva menor que 10%
-            if h < 25: #Se houver umidade menor que 25%
+        if precipitation < precipitation_limit: #Se houver previsão de chuva menor que 60%
+            if h < h_limit: #Se houver umidade menor que 50%
+                rele.value(1) #Liga a bomba
+            elif ph < ph_limit: #Se o PH for menor que 5.5
                 rele.value(1) #Liga a bomba
             else:
                 rele.value(0) #Desliga a bomba
-        else: #Se houver previsão de chuva maior ou igual a 10%
+        else: #Se houver previsão de chuva maior ou igual a 60%
             rele.value(0) #Desliga a bomba
 
     except OSError as e:
         print("Falha na leitura dos sensores. Verifique as conexões.")
 
-    sleep(0.1) #Intervalo para a leitura dos sensores.
+    sleep(1) #Intervalo para a leitura dos segundos.
