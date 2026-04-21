@@ -11,29 +11,26 @@ ph_limit = 5.5 #Liga a bomba de água se o PH for menor que 5.5
 #Chave da api para consultar a previsão do tempo
 API_KEY = "AIzaSyCaa5maiC35idGJ6xYuH9QKTKFo5IK5CN8"
 
-#Variáveis dos elementos Nitrogênio(n), Fósforo(p) e Potássio(k).
+#Variáveis dos elementos Nitrogênio(N), Fósforo(P) e Potássio(K).
 n = True
 p = True
 k = True
 
-#Configuração do botões que simulam os elementos NPK.
+#Configuração dos botões que simulam os elementos NPK.
 push_button_n = Pin(32, Pin.IN, Pin.PULL_UP)
 push_button_p = Pin(33, Pin.IN, Pin.PULL_UP)
 push_button_k = Pin(21, Pin.IN, Pin.PULL_UP)
 
 #Configuração do sensor DHT22 (sensor de umidade do solo).
-sensor_dht = dht.DHT22(Pin(14))
+dht_sensor = dht.DHT22(Pin(14))
 
 #Configura o pino 34 como entrada analógica (ADC) para receber o valor do LDR.
-sensor_ldr = ADC(Pin(34))
-
-#Define a resolução para 12 bits (0-4095)
-# sensor_ldr.width(ADC.WIDTH_12BIT)
+ldr_value = ADC(Pin(34))
 
 #Configuração do relé.
 rele = Pin(23, Pin.OUT)
 
-#Função para converter o valor analógico (32-4095) em uma proporção de PH (0-14)
+#Função para converter o valor analógico do LDR em uma proporção de PH (0-14)
 def analog_to_ph(x):
     #Definindo os limites
     min_origem, max_origem = 32, 4095
@@ -59,7 +56,7 @@ def fetch_weather():
     try:
         print("Consultando a API de clima...")
         response = urequests.get(url)
-        print(f"Status da resposta:{response.status_code}")
+        print(f"Status da resposta: {response.status_code}")
         # print(f"Dados:\n{response.text}\n") # Descomente para ver os dados retornados
         precipitation = response.json()['forecastDays'][0]['daytimeForecast']['precipitation']['probability']['percent']
         response.close()
@@ -72,8 +69,8 @@ def fetch_weather():
 while True:
     try:
         #Leitura do sensor de umidade.
-        sensor_dht.measure()
-        h = sensor_dht.humidity()
+        dht_sensor.measure()
+        h = dht_sensor.humidity()
 
         #Leitura dos botões.
         if push_button_n.value() == 0:
@@ -87,9 +84,9 @@ while True:
         print(f"Fósforo: {p}")
         print(f"Potássio: {k}")
 
-        #Lê o valor analógico (0-4095)
-        ph = sensor_ldr.read();
-        ph =  analog_to_ph(ph);
+        #Lê o valor analógico do LDR.
+        ph_value = ldr_value.read()
+        ph =  analog_to_ph(ph_value);
 
         print(f"Umidade do solo: {h:.1f}%")
         print(f"PH: {ph:.1f}%")
@@ -112,4 +109,4 @@ while True:
     except OSError as e:
         print("Falha na leitura dos sensores. Verifique as conexões.")
 
-    sleep(1) #Intervalo para a leitura dos sensores e da API de clima em segundos.
+    sleep(3) #Intervalo para a leitura dos sensores e da API de clima em segundos.
