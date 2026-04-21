@@ -15,8 +15,8 @@ O sistema permite:
 Para este projeto de automação, escolhemos a cultura do milho, uma das mais responsivas à nutrição e irrigação controlada. Com base em dados técnicos da  [Embrapa](https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/milho/producao/manejo-do-solo-e-adubacao/adubacao-e-fertilidade-do-solo/exigencias-nutricionais-da-planta) e de guias de [agricultura de precisão](https://agroadvance.com.br/blog-adubacao-do-milho/), definimos os parâmetros ideais para o acionamento do relé.
 
 Para que o sistema ligue a irrigação (relé) de forma inteligente, os níveis detectados pelos sensores devem estar abaixo das seguintes faixas ideais:
-* Umidade: 	60% a 80% da Capacidade de Campo → Ligar se umidade < 50%
-* pH:	6,0 a 6,5 →	Ligar (com corretivo) se pH < 5,5
+* Umidade: 	60% a 80% → Ligar se umidade < 50%
+* pH:	6,0 a 6,5 →	Ligar se pH < 5,5
 
 Como o Nitrogênio (N) é o principal agente acidificante, o Fósforo (P) contribui de forma moderada e o Potássio (K) é praticamente neutro, podemos estabelecer uma lógica de soma de impactos.
 Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combinações possíveis para você seguir na simulação:
@@ -63,6 +63,9 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 * Consultando a API de clima...
 * Status da resposta: 200
 * Precipitação: 10%
+
+## Imagem do projeto em execução
+<img width="581" height="456" alt="image" src="https://github.com/user-attachments/assets/94eac2e6-aad4-44a4-9a9e-8ba79cefb313" />
 
 ##
   **Atenção:** Se a API de clima retornar erro o valor de precipitação será zero. Caso o status seja 429, a conta usada chegou no limite diário de requisições (100 por dia) e será necessário alterar a API_KEY (no início do main.py) de uma conta que ainda não chegou no limite ou aguardar até o dia seguinte.
