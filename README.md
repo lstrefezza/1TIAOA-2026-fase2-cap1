@@ -67,6 +67,9 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 ## Imagem do projeto em execução
 <img width="581" height="456" alt="image" src="https://github.com/user-attachments/assets/94eac2e6-aad4-44a4-9a9e-8ba79cefb313" />
 
+## Video explicativo sobre o funcionamento do projeto
+https://www.youtube.com/watch?v=xdoqt5Xyvbc
+
 ##
   **Atenção:** Se a API de clima retornar erro o valor de precipitação será zero. Caso o status seja 429, a conta usada chegou no limite diário de requisições (100 por dia) e será necessário alterar a API_KEY (no início do main.py) de uma conta que ainda não chegou no limite ou aguardar até o dia seguinte.
 
