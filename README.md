@@ -16,8 +16,9 @@ O sistema permite:
 Para este projeto de automação, escolhemos a cultura do milho, uma das mais responsivas à nutrição e irrigação controlada. Com base em dados técnicos da  [Embrapa](https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/milho/producao/manejo-do-solo-e-adubacao/adubacao-e-fertilidade-do-solo/exigencias-nutricionais-da-planta) e de guias de [agricultura de precisão](https://agroadvance.com.br/blog-adubacao-do-milho/), definimos os parâmetros ideais para o acionamento do relé.
 
 Para que o sistema ligue a irrigação (relé) de forma inteligente, os níveis detectados pelos sensores devem estar abaixo das seguintes faixas ideais:
-* Umidade: 	60% a 80% → Ligar se umidade < 50%
-* pH:	6,0 a 6,5 →	Ligar se pH < 5,5
+* Umidade: 	60% a 80% → Ligar se umidade menor que 50% e precipitação menor que 60%
+* PH:	6,0 a 6,5 →	Ligar se pH menor que 5,5 e precipitação menor que 60%
+* Elementos K, P e N -> Ligar se N e P Ativos (Ácido Forte) ou N, P e K Ativos (Muito Ácido)
 
 Como o Nitrogênio (N) é o principal agente acidificante, o Fósforo (P) contribui de forma moderada e o Potássio (K) é praticamente neutro, podemos estabelecer uma lógica de soma de impactos.
 Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combinações possíveis para você seguir na simulação:
