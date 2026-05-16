@@ -1,15 +1,16 @@
 # FarmTech Solutions – Análise de Dados Agrícolas
-Projeto desenvolvido com o objetivo de simular um sistema que avalia o PH e umidade do solo e a probabilidade de chuva, executando python em um simulador de dispositivos eletrônicos ([Wokwi](https://wokwi.com/)), utilizando o modelo ESP32, afim de controlar a irrigação do solo conforme a necessidade para um tipo específico de plantação.
+Projeto desenvolvido com o objetivo de simular um sistema que avalia o PH e umidade do solo e a probabilidade de chuva, executando código em C++ (PlatformIO/Arduino) em um simulador de dispositivos eletrônicos ([Wokwi](https://wokwi.com/)), utilizando o modelo ESP32, afim de controlar a irrigação do solo conforme a necessidade para um tipo específico de plantação.
 
 ## Funcionalidades
 O sistema permite:
 
-* Pressionar 3 botões para simular os níveis dos elementos químicos: Nitrogênio(N), Fósforo(P), Potássio(K) no solo.
-* Visualizar quais elementos, Nitrogênio(N), Fósforo(P), Potássio(K) estão presentes no solo (True ou False).
+* Alterar dinamicamente os níveis dos elementos químicos: Nitrogênio(N), Fósforo(P), Potássio(K) no solo utilizando os botões físicos na simulação e o menu interativo no Terminal Serial.
+* Visualizar quais elementos estão presentes no solo de forma intuitiva com indicadores (Ativo 🟢 ou Inativo 🔴).
 * Visualizar o nível de PH do solo, que será simulado pelo sensor de luz.
-* Visualizar a porcentagem da umidade do solo, que será simulada pelo sensor de umidade do ar.
-* Consultar via api e visualizar probabiliadde de precipitação (chuva).
-* Controlar o relé azul representando uma bomba de àgua para irrigação do solo caso a umidade do solo seja menor que 50% ou pH seja menor que 5.5 e caso a probabilidade de chuva seja menor que 60%.
+* Visualizar a porcentagem da umidade do solo, que será simulada pelo sensor de umidade do ar (DHT22).
+* Consultar via API (Google Weather com Proxy) a probabilidade de precipitação (chuva) ou inserir o valor manualmente pelo terminal.
+* Controlar o relé azul representando uma bomba de água para irrigação do solo caso a umidade do solo seja menor que 50% ou pH seja menor que 5.5 e caso a probabilidade de chuva seja menor que 60%.
+* Armazenamento automático do histórico de leituras (Umidade, PH, N, P, K, Precipitação e estado da Irrigação) em um arquivo CSV (`/dados/dados.csv`) utilizando o sistema de arquivos interno do ESP32.
 
 ## Contexto dos valores
 Para este projeto de automação, escolhemos a cultura do milho, uma das mais responsivas à nutrição e irrigação controlada. Com base em dados técnicos da  [Embrapa](https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/milho/producao/manejo-do-solo-e-adubacao/adubacao-e-fertilidade-do-solo/exigencias-nutricionais-da-planta) e de guias de [agricultura de precisão](https://agroadvance.com.br/blog-adubacao-do-milho/), definimos os parâmetros ideais para o acionamento do relé.
@@ -39,33 +40,58 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 *   **Ação K:** -0.2 no pH
 
 ## Tecnologias utilizadas
-* Python → sistema principal
-* ESP32 → microcontrolador que executa o python para integração dos sensores.
-* photoresistor-sensor (LDR) → sensor de luz, que irá ajudar na simulação do PH do solo.
-* dht22 → sensor de umidade e temperatura do ar, que irá ajudar na simulação da umidade do solo.
-* relay-module → relé que representa aa bomba de àgua.
-* Weather API - API de clima do Google.
+* C++ (Framework Arduino) → código principal rodando no microcontrolador.
+* PlatformIO → gerenciador de dependências e ambiente de compilação.
+* ESP32 → microcontrolador simulado que executa o código e integra os sensores.
+* photoresistor-sensor (LDR) → sensor de luz, que ajuda na simulação do PH do solo.
+* dht22 → sensor de umidade e temperatura do ar, que ajuda na simulação da umidade do solo.
+* relay-module → relé que representa a bomba de água.
+* Weather API - API de clima do Google (através de um proxy HTTP configurado no código).
+* LittleFS → sistema de arquivos da memória flash do ESP32 usado para armazenar o CSV de dados.
 
 ## Como executar o projeto
-1. Abra um projeto no wokwi: https://wokwi.com/projects/305568836183130690
-2. Cole o código do main.py na aba main.py do wokwi.
-3. Cole o código do diagram.py na aba diagram.py do wokwi.
-4. Executar o projeto no wokwi clicando no botão verde (start the simulation)
-5. Alterar a umidade do solo clicando no DHT22.
-6. Simular os níveis dos elementos e pH do solo clicando nos botões e no LDR.
+1. Abra a pasta do projeto no VS Code com a extensão do **PlatformIO** e do **Wokwi** instaladas.
+2. Deixe o PlatformIO instalar as dependências e compilar o projeto (`PlatformIO: Build`).
+3. Abra o arquivo `diagram.json`.
+4. Inicie a simulação do Wokwi.
+5. Utilize o **Terminal Serial** integrado para interagir com o sistema:
+   - Responda aos menus para alterar os estados dos botões N, P e K (clicando neles quando solicitado no terminal).
+   - Escolha se deseja buscar o clima via API ou digitá-lo manualmente.
+6. Altere a umidade do solo e o LDR (pH) clicando diretamente nos componentes durante a simulação.
 
-## Exemplo de saída
-* Nitrogênio: True
-* Fósforo: True
-* Potássio: True
-* Umidade do solo: 21.0%
-* PH: 0.1%
-* Consultando a API de clima...
-* Status da resposta: 200
-* Precipitação: 10%
+## Exemplo de saída no Terminal Serial
+```text
+================= STATUS =================
+
+🌡️  Umidade do Solo: 25.5%
+
+🧪 PH do Solo:      10.7
+
+🌱 Nutrientes NPK:
+   [N] Nitrogênio: Inativo 🔴
+   [P] Fósforo:    Ativo 🟢
+   [K] Potássio:   Inativo 🔴
+
+Deseja alterar o valor dos elementos NPK?
+1 - Sim
+2 - Nao
+Sua escolha: 2
+
+Escolha como obter a previsao de precipitacao:
+1 - Atraves da API de Clima (Proxy HTTP para Google)
+2 - Digitar o valor diretamente
+Sua escolha: 1
+
+☁️  Precipitação:    10%
+
+💧 Bomba de Água: LIGADA (Baixa Umidade)
+
+📝 O arquivo CSV foi atualizado com sucesso!
+📂 Local: /dados/dados.csv (Memória Flash Interna do ESP32)
+```
 
 ##
-  **Atenção:** Se a API de clima retornar erro o valor de precipitação será zero. Caso o status seja 429, a conta usada chegou no limite diário de requisições (100 por dia) e será necessário alterar a API_KEY (no início do main.py) de uma conta que ainda não chegou no limite ou aguardar até o dia seguinte.
+  **Atenção:** Como o projeto utiliza C++ para o microcontrolador no Wokwi, todas as interações e leituras síncronas agora são feitas através do Terminal Serial interativo, garantindo uma simulação mais realista e robusta das lógicas de acionamento.
 
 ## Autor
 
