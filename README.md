@@ -10,7 +10,7 @@ O sistema permite:
 * Visualizar a porcentagem da umidade do solo, que será simulada pelo sensor de umidade do ar (DHT22).
 * Consultar via API (Google Weather com Proxy) a probabilidade de precipitação (chuva) ou inserir o valor manualmente pelo terminal.
 * Controlar o relé azul representando uma bomba de água para irrigação do solo caso a umidade do solo seja menor que 50% ou pH seja menor que 5.5 e caso a probabilidade de chuva seja menor que 60%.
-* Armazenamento automático do histórico de leituras (Umidade, PH, N, P, K, Precipitação e estado da Irrigação) em um arquivo CSV (`/dados/dados.csv`) utilizando o sistema de arquivos interno do ESP32.
+* Armazenamento automático do histórico de leituras (Umidade, PH, N, P, K, Precipitação e estado da Irrigação) em uma planilha do google utilizando um webhook [make](https://hook.us2.make.com/6ap7p29fuyrktts5t2ik3w767p5gfky5).
 
 ## Contexto dos valores
 Para este projeto de automação, escolhemos a cultura do milho, uma das mais responsivas à nutrição e irrigação controlada. Com base em dados técnicos da  [Embrapa](https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/milho/producao/manejo-do-solo-e-adubacao/adubacao-e-fertilidade-do-solo/exigencias-nutricionais-da-planta) e de guias de [agricultura de precisão](https://agroadvance.com.br/blog-adubacao-do-milho/), definimos os parâmetros ideais para o acionamento do relé.
@@ -47,8 +47,8 @@ Considerando um solo inicial neutro (pH), aqui está a tabela com todas as combi
 * photoresistor-sensor (LDR) → sensor de luz, que ajuda na simulação do PH do solo.
 * dht22 → sensor de umidade e temperatura do ar, que ajuda na simulação da umidade do solo.
 * relay-module → relé que representa a bomba de água.
-* Weather API - API de clima do Google (através de um proxy HTTP configurado no código).
-* LittleFS → sistema de arquivos da memória flash do ESP32 usado para armazenar o CSV de dados.
+* Weather API → API de clima do Google (através de um proxy HTTP configurado no código).
+* Webhook Make → sistema de webhook que permite automatizar fluxos integrando com outros sistemas.
 
 ## Como executar o projeto
 1. Abra a pasta do projeto no VS Code com a extensão do **PlatformIO** e do **Wokwi** instaladas.
@@ -83,16 +83,22 @@ Escolha como obter a previsao de precipitacao:
 2 - Digitar o valor diretamente
 Sua escolha: 1
 
+🌍 Consultando API de Clima (Proxy HTTPS)...
+Status: 200
+
 ☁️  Precipitação:    10%
 
 💧 Bomba de Água: LIGADA (Baixa Umidade)
 
-📝 O arquivo CSV foi atualizado com sucesso!
-📂 Local: /dados/dados.csv (Memória Flash Interna do ESP32)
+Enviando dados para o Make (Webhook)...
+Status: 200
+Dados enviados com sucesso!
 ```
 
 ## Imagem do projeto em execução
-<img width="581" height="456" alt="image" src="https://github.com/user-attachments/assets/94eac2e6-aad4-44a4-9a9e-8ba79cefb313" />
+<img width="916" height="515" alt="image" src="https://github.com/user-attachments/assets/2d7b0b0f-a6ca-46c2-b83c-10007ac7b479" />
+<img width="920" height="516" alt="image" src="https://github.com/user-attachments/assets/67fedadd-cd16-468f-9fbf-ab196d790a15" />
+
 
 ## Video explicativo sobre o funcionamento do projeto
 https://www.youtube.com/watch?v=xdoqt5Xyvbc
