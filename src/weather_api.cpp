@@ -58,7 +58,7 @@ int fetchWeather() {
         if (httpCode > 0) {
             if (httpCode == HTTP_CODE_OK) {
                 String payload = http.getString();
-                DynamicJsonDocument doc(2048); 
+                JsonDocument doc; 
                 DeserializationError error = deserializeJson(doc, payload);
 
                 if (!error) {

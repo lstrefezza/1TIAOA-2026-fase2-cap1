@@ -1,12 +1,15 @@
 #include <Arduino.h>
-#include <SPIFFS.h>
+#include <LittleFS.h>
 #include "sensors.h"
 #include "weather_api.h"
+#include "webhook_api.h"
+#include "FS.h"
 
 // Limites definidos
 const int precipitation_limit = 60; // Não liga a bomba se previsão de chuva for >= 60%
 const float h_limit = 50.0;         // Liga a bomba se umidade for < 50%
 const float ph_limit = 5.5;         // Liga a bomba se o PH for < 5.5
+// LittleFS não requer pin de CS
 
 // Variáveis de estado
 bool n = false;
@@ -23,11 +26,6 @@ void setup() {
     
     // Inicializa os sensores e atuadores
     initSensors(dht);
-
-    // Inicializa o sistema de arquivos para salvar o CSV
-    if (!SPIFFS.begin(true)) {
-        Serial.println("Erro ao inicializar o SPIFFS para salvar CSV");
-    }
 }
 
 void loop() {
@@ -164,7 +162,7 @@ void loop() {
             Serial.println("💧 Bomba de Água: LIGADA (PH Baixo)");
         } else {
             digitalWrite(PIN_RELAY, LOW); // Desliga a bomba
-            Serial.println("🛑 Bomba de Água: DESLIGADA");
+            Serial.println("🛑 Bomba de Água: DESLIGADA (Umidade e PH adequados)");
         }
     } else { // Previsão de chuva >= 60%
         digitalWrite(PIN_RELAY, LOW); // Desliga a bomba
@@ -172,22 +170,11 @@ void loop() {
     }
     Serial.println("");
 
-    // Salvar dados no arquivo CSV
-    File file = SPIFFS.open("/dados.csv", FILE_APPEND);
-    if (!file) {
-        Serial.println("⚠️  Erro ao abrir arquivo CSV para escrita.");
-    } else {
-        // Se o arquivo estiver vazio, insere o cabeçalho
-        if (file.size() == 0) {
-            file.println("Umidade,PH,N,P,K,Precipitacao,Irrigacao");
-        }
-        bool bombaLigada = digitalRead(PIN_RELAY) == HIGH;
-        file.printf("%.1f,%.1f,%d,%d,%d,%d,%d\n", h, ph, n, p, k, precipitation, bombaLigada);
-        file.close();
-        Serial.println("📝 O arquivo CSV foi atualizado com sucesso!");
-        Serial.println("📂 Local: /dados.csv (Memória Flash Interna do ESP32)");
-    }
-    
+
+    // Enviar dados para o Make (Webhook)
+    bool bombaLigada = digitalRead(PIN_RELAY) == HIGH;
+    sendWebhookData(h, ph, n, p, k, precipitation, bombaLigada);
+
     Serial.println("");
 
     delay(3000); // Intervalo de 3 segundos

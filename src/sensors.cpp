@@ -45,5 +45,6 @@ float analogToPh(int ldrValue) {
     if (ldrValue > max_origem) ldrValue = max_origem;
     
     float resultado = (ldrValue - min_origem) * (max_destino - min_destino) / (max_origem - min_origem) + min_destino;
-    return resultado;
+    float resultado_arredondado = std::round(resultado * 10.0f) / 10.0f;
+    return resultado_arredondado;
 }

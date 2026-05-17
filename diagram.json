@@ -3,13 +3,7 @@
   "author": "Luisa Souza",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": -96,
-      "left": 158.44,
-      "attrs": {}
-    },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": -96, "left": 158.44, "attrs": {} },
     {
       "type": "wokwi-dht22",
       "id": "dht1",
