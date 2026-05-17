@@ -98,6 +98,8 @@ Dados enviados com sucesso!
 ## Imagem do projeto em execução
 <img width="916" height="515" alt="image" src="https://github.com/user-attachments/assets/2d7b0b0f-a6ca-46c2-b83c-10007ac7b479" />
 <img width="920" height="516" alt="image" src="https://github.com/user-attachments/assets/67fedadd-cd16-468f-9fbf-ab196d790a15" />
+<img width="1273" height="491" alt="image" src="https://github.com/user-attachments/assets/8c627567-2858-42e0-9095-b1b4d5cfa0cb" />
+<img width="678" height="287" alt="image" src="https://github.com/user-attachments/assets/59aebc7c-ed66-4e9f-bfb9-ead9cbcd9b59" />
 
 
 ## Video explicativo sobre o funcionamento do projeto
