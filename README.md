@@ -102,6 +102,9 @@ Dados enviados com sucesso!
 <img width="678" height="287" alt="image" src="https://github.com/user-attachments/assets/59aebc7c-ed66-4e9f-bfb9-ead9cbcd9b59" />
 
 
+Para gerar o csv, solicite acesso à [planilha do google](https://docs.google.com/spreadsheets/d/1uWP3c73Cgzufz32egiRqkPCWPu0tL_UkEZacw3kMNEM/edit?gid=0#gid=0) e após acessa-la, clique em arquivo > baixar > valores separados por vírgula (.csv):
+<img width="845" height="778" alt="image" src="https://github.com/user-attachments/assets/d4e60a1b-f465-4591-9e20-9979d556ba03" />
+
 ## Video explicativo sobre o funcionamento do projeto
 https://www.youtube.com/watch?v=xdoqt5Xyvbc
 
