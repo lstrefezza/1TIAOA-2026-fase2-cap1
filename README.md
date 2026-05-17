@@ -10,7 +10,7 @@ O sistema permite:
 * Visualizar a porcentagem da umidade do solo, que será simulada pelo sensor de umidade do ar (DHT22).
 * Consultar via API (Google Weather com Proxy) a probabilidade de precipitação (chuva) ou inserir o valor manualmente pelo terminal.
 * Controlar o relé azul representando uma bomba de água para irrigação do solo caso a umidade do solo seja menor que 50% ou pH seja menor que 5.5 e caso a probabilidade de chuva seja menor que 60%.
-* Armazenamento automático do histórico de leituras (Umidade, PH, N, P, K, Precipitação e estado da Irrigação) em uma planilha do google utilizando um webhook [make](https://hook.us2.make.com/6ap7p29fuyrktts5t2ik3w767p5gfky5).
+* Armazenamento automático do histórico de leituras (Umidade, PH, N, P, K, Precipitação e estado da Irrigação) em uma [planilha do google](https://docs.google.com/spreadsheets/d/1uWP3c73Cgzufz32egiRqkPCWPu0tL_UkEZacw3kMNEM/edit?gid=0#gid=0) utilizando um webhook [make](https://hook.us2.make.com/6ap7p29fuyrktts5t2ik3w767p5gfky5).
 
 ## Contexto dos valores
 Para este projeto de automação, escolhemos a cultura do milho, uma das mais responsivas à nutrição e irrigação controlada. Com base em dados técnicos da  [Embrapa](https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/milho/producao/manejo-do-solo-e-adubacao/adubacao-e-fertilidade-do-solo/exigencias-nutricionais-da-planta) e de guias de [agricultura de precisão](https://agroadvance.com.br/blog-adubacao-do-milho/), definimos os parâmetros ideais para o acionamento do relé.
