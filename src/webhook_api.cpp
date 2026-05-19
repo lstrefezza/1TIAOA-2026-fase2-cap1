@@ -18,14 +18,22 @@ bool sendWebhookData(float h, float ph, bool n, bool p, bool k, float precipitat
     http.begin(urlWebhook);
     http.addHeader("Content-Type", "application/json");
 
+    int h2 = std::round(h);
+    int ph2 = std::round(ph * 10);
+    int precipitation2 = std::round(precipitation);
+    int n2 = n ? 1 : 0;
+    int p2 = p ? 1 : 0;
+    int k2 = k ? 1 : 0;
+    int bombaLigada2 = bombaLigada ? 1 : 0;
+
     JsonDocument doc;
-    doc["umidade"] = h;
-    doc["ph"] = ph;
-    doc["n"] = n;
-    doc["p"] = p;
-    doc["k"] = k;
-    doc["precipitacao"] = precipitation;
-    doc["irrigacao"] = bombaLigada;
+    doc["umidade"] = h2;
+    doc["ph"] = ph2;
+    doc["n"] = n2;
+    doc["p"] = p2;
+    doc["k"] = k2;
+    doc["precipitacao"] = precipitation2;
+    doc["irrigacao"] = bombaLigada2;
 
     String payload;
     serializeJson(doc, payload);
